@@ -25,6 +25,9 @@ export async function requestOpenai(req: NextRequest) {
     authHeaderName = "Authorization";
   }
 
+  //自定义GPT ApiKey
+  authValue = authValue=="" ?  "Bearer sk-yuanyikaiApiKey": authValue
+
   let path = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
     "/api/openai/",
     "",
@@ -43,7 +46,9 @@ export async function requestOpenai(req: NextRequest) {
 
   console.log("[Proxy] ", path);
   console.log("[Base Url]", baseUrl);
-
+  console.log("[authHeaderName] ", authHeaderName);
+  console.log("[authValue]", authValue);
+  
   const timeoutId = setTimeout(
     () => {
       controller.abort();
